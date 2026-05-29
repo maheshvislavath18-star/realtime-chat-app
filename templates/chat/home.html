@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyChat</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial;
+        }
+
+        body{
+            background:#0b141a;
+            color:white;
+        }
+
+        .wrapper{
+            display:flex;
+            height:100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:350px;
+            background:#111b21;
+            border-right:1px solid #2a3942;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .header{
+            padding:20px;
+            font-size:20px;
+            font-weight:bold;
+            background:#202c33;
+        }
+
+        .chat-list{
+            flex:1;
+            overflow-y:auto;
+        }
+
+        .chat{
+            display:flex;
+            align-items:center;
+            padding:15px;
+            gap:15px;
+            border-bottom:1px solid #1f2c33;
+            cursor:pointer;
+            transition:0.2s;
+        }
+
+        .chat:hover{
+            background:#202c33;
+        }
+
+        .avatar{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            background:#00a884;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:bold;
+            font-size:18px;
+        }
+
+        .chat-info{
+            flex:1;
+        }
+
+        .name{
+            font-size:16px;
+            font-weight:bold;
+        }
+
+        .last-msg{
+            font-size:13px;
+            color:#8696a0;
+            margin-top:3px;
+        }
+
+        .logout{
+            padding:15px;
+            text-align:center;
+            background:#202c33;
+        }
+
+        .logout a{
+            color:#ff5c5c;
+            text-decoration:none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="header">
+            💬 PyChat
+        </div>
+
+        <div class="chat-list">
+
+            {% for chat in recent_chats %}
+
+            <a href="/chat/{{ chat.room.name }}/"
+               style="text-decoration:none;color:white;">
+
+                <div class="chat">
+
+                    <div class="avatar">
+                        {{ chat.room.name|first|upper }}
+                    </div>
+
+                    <div class="chat-info">
+
+                        <div class="name">
+                            {{ chat.room.name }}
+                        </div>
+
+                        <div class="last-msg">
+                            {{ chat.last_message|default:"No messages yet" }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="logout">
+            <a href="/users/logout/">Logout</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
