@@ -10,12 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ---------------- SECURITY ----------------
 SECRET_KEY = 'django-insecure-@yln4rf2v4y@!uxj)ganli0ph*9jp*mxw1851sh$97_90oujgq'
 DEBUG = True
-ALLOWED_HOSTS = ALLOWED_HOSTS = [
-    "realtime-chat-app-9y0x.onrender.com",
-    "localhost",
-    "127.0.0.1"
-]
-
+ALLOWED_HOSTS = ["*"]
 
 # ---------------- APPS ----------------
 INSTALLED_APPS = [
