@@ -3,18 +3,28 @@ Django settings for core project.
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # ---------------- SECURITY ----------------
 SECRET_KEY = 'django-insecure-@yln4rf2v4y@!uxj)ganli0ph*9jp*mxw1851sh$97_90oujgq'
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+
+DEBUG = True  # ⚠️ keep True for now, later change to False in production
+
+ALLOWED_HOSTS = [
+    "realtime-chat-app-9y0x.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
+
+# 🔥 CSRF FIX (IMPORTANT FOR LOGIN ON RENDER)
+CSRF_TRUSTED_ORIGINS = [
+    "https://realtime-chat-app-9y0x.onrender.com",
+]
 
 # ---------------- APPS ----------------
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -22,14 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 👇 your apps
     'users',
     'chat',
 
-    # 🔥 Channels (REALTIME)
+    # realtime
     'channels',
 ]
-
 
 # ---------------- MIDDLEWARE ----------------
 MIDDLEWARE = [
@@ -42,10 +50,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 # ---------------- URLS ----------------
 ROOT_URLCONF = 'core.urls'
-
 
 # ---------------- TEMPLATES ----------------
 TEMPLATES = [
@@ -63,11 +69,9 @@ TEMPLATES = [
     },
 ]
 
-
-# ---------------- WSGI / ASGI ----------------
+# ---------------- ASGI ----------------
 WSGI_APPLICATION = 'core.wsgi.application'
 ASGI_APPLICATION = 'core.asgi.application'
-
 
 # ---------------- DATABASE ----------------
 DATABASES = {
@@ -77,7 +81,6 @@ DATABASES = {
     }
 }
 
-
 # ---------------- PASSWORD VALIDATION ----------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -86,35 +89,25 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 # ---------------- INTERNATIONALIZATION ----------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
-# ---------------- STATIC FILES ----------------
+# ---------------- STATIC ----------------
 STATIC_URL = '/static/'
 
-
-# ---------------- MEDIA FILES (🔥 IMPORTANT FOR IMAGES) ----------------
+# ---------------- MEDIA (FIXED - REMOVE DUPLICATE) ----------------
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
-# ---------------- CHANNELS (REALTIME CHAT) ----------------
+# ---------------- CHANNELS ----------------
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
 
-
-# ---------------- DEFAULT PRIMARY KEY ----------------
+# ---------------- DEFAULT PK ----------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import os
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
